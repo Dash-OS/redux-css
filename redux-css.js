@@ -36,8 +36,6 @@ const middleware = (reducer, currentVars, action, state) => {
 }
 
 export default (initialReducer, initialVars) => {
-
-
   let reducer = buildReducer(initialReducer)
 
   let currentVars = Object.assign({}, initialVars, reducer(initialVars, {
@@ -51,22 +49,29 @@ export default (initialReducer, initialVars) => {
       middleware(reducer, currentVars, action, store.getState())
       return next(action)
     },
-    replaceReducer: nextReducer => {
-      reducer = buildReducer(nextReducer)
-    },
-    getVars: () => Object.assign({}, currentVars),
+    replaceReducer: nextReducer => { reducer = buildReducer(nextReducer) },
     setVariable: (varName, value) => {
       const prevValue = currentVars[varName]
       if ( prevValue !== value ) {
-        currentVars[varName] = value
         setVariable(varName, value)
+        currentVars[varName] = value
       }
       return prevValue
     },
+    setAllVariables: (vars = {}) => {
+      for ( const varName in vars ) {
+        const prevValue = currentVars[varName]
+        if ( prevValue !== vars[varName] ) {
+          setVariable(varName, vars[varName])
+          currentVars[varName] = vars[varName]
+        }
+      }
+    },
     getVariable: varName => currentVars[varName],
+    getAllVariables: () => Object.assign({}, currentVars),
     removeVariable: varName => {
       if ( currentVars[varName] ) {
-
+        removeVariable(varName)
         delete currentVars[varName]
       }
     }
