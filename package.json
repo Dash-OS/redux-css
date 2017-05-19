@@ -3,13 +3,22 @@
   "version": "1.0.0",
   "description": "Redux Middleware to allow you to reduce CSS Variables",
   "main": "src/redux-css.js",
-  "repository": "https://github.com/Dash-OS/redux-css.git",
   "author": "Braden R. Napier <brady.napier@dashos.net>",
   "license": "MIT",
   "scripts": {
     "test": "./node_modules/.bin/mocha --require co-mocha",
     "prepublish": "npm run build",
     "build": "cross-env BABEL_ENV=production NODE_ENV=production \"rimraf dist && webpack\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dash-OS/redux-css.git"
+  },
+  "directories": {
+    "lib": "src/utils"
+  },
+  "bugs": {
+    "url": "https://github.com/Dash-OS/redux-css/issues"
   },
   "keywords": [
     "react",

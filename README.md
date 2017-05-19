@@ -24,6 +24,7 @@ import reduxCSS from 'redux-css'
 import reducers from './reducers'
 
 const initialStyles = {
+  primaryBG: '#303641',
   navbarHeight: '55px',
   navbarPaddingTop: '0px'
 }
@@ -70,6 +71,22 @@ const configureStore = (initialState = {}) => {
   )
 
   return { store, css }
+}
+```
+
+```css
+/*navbar.css*/
+:root {
+ /* optionally provide fallback values */
+  --primaryBG: "#303641";
+  --navbarHeight: 50px;
+  --navbarPaddingTop: 5px;
+}
+
+.navbar-container {
+  background-color: var(--primaryBG);
+  height: var(--navbarHeight);
+  padding-top: var(--navbarPaddingTop);
 }
 ```
 
@@ -127,4 +144,24 @@ Redux CSS Middleware to be passed to redux.
 
 ```js
 applyMiddleware(css.middleware)
+```
+
+## PostCSS Custom Properties
+
+If you are using postcss-cssnext or postcss-custom-properties then you will want
+to set your configuration:
+
+```js
+// postcss.config.js
+module.exports = {
+  plugins: [
+    require('postcss-cssnext')({
+      features: {
+        customProperties: {
+          preserve: true,
+        },
+      }
+    }),
+  ],
+}
 ```
