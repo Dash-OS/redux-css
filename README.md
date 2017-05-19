@@ -24,7 +24,8 @@ import reduxCSS from 'redux-css'
 import reducers from './reducers'
 
 const initialStyles = {
-  navbarHeight: '50px'
+  navbarHeight: '55px',
+  navbarPaddingTop: '0px'
 }
 
 const styleReducer = (vars = initialStyles, action, state) => {
@@ -33,16 +34,18 @@ const styleReducer = (vars = initialStyles, action, state) => {
       return {
         ...vars,
         navbarHeight: action.orientation === 'portrait'
-          ? '50px'
-          : '60px'
+          ? '55px'
+          : '50px',
+        navbarPaddingTop: action.orientation === 'portrait'
+          : '5px'
+          : '0px'
       }
     }
   }
   return vars
 }
 
-const configureStore = (initialState = {}, hooks = {}) => {
-  const middlewares = []
+const configureStore = (initialState = {}) => {
 
   // exposes: css.getVariable, css.setVariable, css.removeVariable, css.middleware
   const {
