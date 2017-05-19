@@ -2,7 +2,7 @@
   "name": "redux-css",
   "version": "1.0.1",
   "description": "Redux Middleware to allow you to reduce CSS Variables",
-  "main": "src/redux-css.js",
+  "main": "dist/redux-css.js",
   "author": "Braden R. Napier <brady.napier@dashos.net>",
   "license": "MIT",
   "scripts": {
