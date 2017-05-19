@@ -1,6 +1,6 @@
 {
   "name": "redux-css",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Redux Middleware to allow you to reduce CSS Variables",
   "main": "src/redux-css.js",
   "author": "Braden R. Napier <brady.napier@dashos.net>",
@@ -12,13 +12,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Dash-OS/redux-css.git"
+    "url": "git+https://github.com/dash-os/redux-css.git"
   },
   "directories": {
     "lib": "src/utils"
   },
   "bugs": {
-    "url": "https://github.com/Dash-OS/redux-css/issues"
+    "url": "https://github.com/dash-os/redux-css/issues"
   },
   "keywords": [
     "react",

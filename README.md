@@ -4,6 +4,11 @@ Use the redux pattern to control CSS Variables.  You provide redux-style reducer
 that set your variable values when changed, allowing you to style your app in many
 new ways.
 
+At the moment, this will only operate on the top-level documentElement.  If you
+define variables at higher levels they will continue to take precedence.  It is
+handled through [`style.setProperty`](https://github.com/Dash-OS/redux-css/blob/master/src/utils/css.js#L5)
+and [`getComputedStyle(...).getPropertyValue`](https://github.com/Dash-OS/redux-css/blob/master/src/utils/css.js#L11-L13).
+
 ## Installation
 
 ```
@@ -23,6 +28,11 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import reduxCSS from 'redux-css'
 import reducers from './reducers'
 
+/*
+  initial styles are the variables that we should set immediately.
+  Note that '--' is optional, it will be added for you if you don't
+  include it.
+*/
 const initialStyles = {
   primaryBG: '#303641',
   navbarHeight: '55px',
@@ -58,7 +68,6 @@ const configureStore = (initialState = {}) => {
   )
 
   const enhancers = compose(
-    // Middleware store enhancer.
     applyMiddleware(
       cssMiddleware
     )
