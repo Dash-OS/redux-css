@@ -1,20 +1,4 @@
-import { Wildcard } from './wildcard'
-
-// const WC = new Wildcard()
-//   .logic('and')
-//   .case(false)
-//   .pattern({ 'NETWORK*': 'yes', 'FOO': 'no', '*REQUEST': 'ok' })
-//   .search('network_request')
-//   //.filter('NETWORK_REQUEST')
-//   //.pattern('NETWORK*')
-//   //.filter({ 'NETWORK*': 'yes', 'FOO': 'no' })
-//   //.pattern({ 'NETWORK*': 'win', '*REQUEST': 'win', 'NO': 'fail' })
-//   //.pattern(['*NETWORK*', 'REQUEST', '*REQUEST'])
-//   //.pattern('*NETWORK*')
-//   //.filter(['One NETWORK', 'NETWORK', 'foo', 'bar', 'network'])
-//   //.filter(['NETWORK', 'REQUEST', 'FOO'])
-
-// console.log(WC)
+// import { Wildcard } from './wildcard'
 
 const nilReducer =
   ( initialState = {} ) =>  ( state = initialState ) => state
@@ -30,18 +14,18 @@ const objectMapReducer =
     return handlers[action.type](state, action, { ...pcontext, ...context })
   }
 
-const wildcardMapReducer =
-  (initialState, handlers = {}, pcontext) => {
-    const wcMatcher = new Wildcard(handlers)
-    return (state = initialState, action, context) =>
-      {
-        if ( ! action || ! action.type ) return state
-        const matches = wcMatcher.search(action.type)
-        return Object.keys(matches).reduce( (p, c) =>
-          matches[c](p, action, { ...pcontext, ...context })
-        , state )
-      }
-  }
+// const wildcardMapReducer =
+//   (initialState, handlers = {}, pcontext) => {
+//     const wcMatcher = new Wildcard(handlers)
+//     return (state = initialState, action, context) =>
+//       {
+//         if ( ! action || ! action.type ) return state
+//         const matches = wcMatcher.search(action.type)
+//         return Object.keys(matches).reduce( (p, c) =>
+//           matches[c](p, action, { ...pcontext, ...context })
+//         , state )
+//       }
+//   }
 
 const reducerReducer =
   ( initialState, reducer, pcontext ) => ( state = initialState, action, context ) =>
@@ -67,5 +51,4 @@ export {
   objectMapReducer,
   nestedObjectMapReducer,
   reducerReducer,
-  wildcardMapReducer
 }

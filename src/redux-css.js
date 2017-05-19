@@ -1,6 +1,5 @@
 import { isObjLiteral } from './utils/helpers'
-
-import * as generators from './utils/reducerGenerators'
+// import { objectMapReducer } from './utils/reducerGenerators'
 import {
   setVariable,
   setAllVariables,
@@ -76,8 +75,4 @@ export default (initialReducer, initialVars) => {
       }
     }
   }
-}
-
-if ( module.hot ) {
-  module.hot.accept()
 }

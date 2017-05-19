@@ -1,15 +1,3 @@
-import { hasWildcard } from './wildcard'
-let props = {
-  compiled: false,
-  mergeReducers: true,
-  useRegistry: true,
-  wildcardMatch: true,
-  ssr: true,
-  hot: true,
-  log: false
-}
-
-const configProcess = config => ( config &&  ( props = { ...props, ...config } ) )
 
 const isObjLiteral =
   o => ( o !== null && ! Array.isArray(o) && typeof o !== 'function' && typeof o === 'object' )
@@ -41,7 +29,8 @@ const isReduxType = str => /^[A-Z\*]+([_\*][A-Z\*]+)*?$/.test(str)
   systemRX -> 'SYSTEM_RX'
 */
 function formatType (type) {
-  let wildcardType = hasWildcard(type)
+  // let wildcardType = hasWildcard(type)
+  let wildcardType
   if ( isReduxType(type) ) { return type }
   var buffer = '',
       list = type
@@ -87,4 +76,4 @@ function formatType (type) {
   }
 }
 
-export { isObjLiteral, toReduxType, isReduxType, props }
+export { isObjLiteral, toReduxType, isReduxType }
