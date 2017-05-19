@@ -72,3 +72,59 @@ const configureStore = (initialState = {}) => {
   return { store, css }
 }
 ```
+
+## API
+
+#### css.setVariable(varName, value)
+
+Set a CSS Variable if changed from it's current value.  Returns the previous
+value of the variable (if any).
+
+```js
+css.setVariable('primaryBG', '#303641')
+```
+
+#### css.setAllVariables(variables)
+
+Take an Object Literal and sets each of its keys as CSS Variables with their values.
+
+```js
+css.setAllVariables({
+  primaryBG: '#303641',
+  secondaryBG: '#121519'
+})
+```
+
+#### css.getVariable(varName)
+
+Gets the given CSS Variables current value.
+
+```js
+const primaryBG = css.getVariable('primaryBG')
+```
+
+#### css.getAllVariables
+
+Gets all of the current variables.  Currently this only captures the variables
+that redux-css is handling.
+
+
+```js
+const variables = css.getAllVariables()
+```
+
+#### css.removeVariable(varName)
+
+Remove the given CSS Variable.
+
+```js
+css.removeVariable('navbarPadding')
+```
+
+#### css.middleware
+
+Redux CSS Middleware to be passed to redux.
+
+```js
+applyMiddleware(css.middleware)
+```
