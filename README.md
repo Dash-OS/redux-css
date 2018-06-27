@@ -4,6 +4,20 @@ Use the redux pattern to control CSS Variables.  You provide redux-style reducer
 that set your variable values when changed, allowing you to style your app in many
 new ways.
 
+## Installation
+
+```
+yarn add redux-css
+```
+
+**or**
+
+```
+npm install --save redux-css
+```
+
+## Example
+
 ```js
 import { createStore, applyMiddleware, compose } from 'redux'
 import reduxCSS from 'redux-css'
