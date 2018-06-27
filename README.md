@@ -1,17 +1,14 @@
 # Redux CSS Middleware
 
-Use the redux pattern to control CSS Variables.  You provide redux-style reducers
+Use the redux pattern to control CSS Variables. You provide redux-style reducers
 that set your variable values when changed, allowing you to style your app in many
 new ways.
 
-<<<<<<< HEAD
-=======
-At the moment, this will only operate on the top-level documentElement.  If you
-define variables at higher levels they will continue to take precedence.  It is
+At the moment, this will only operate on the top-level documentElement. If you
+define variables at higher levels they will continue to take precedence. It is
 handled through [`style.setProperty`](https://github.com/Dash-OS/redux-css/blob/master/src/utils/css.js#L5)
 and [`getComputedStyle(...).getPropertyValue`](https://github.com/Dash-OS/redux-css/blob/master/src/utils/css.js#L11-L13).
 
->>>>>>> 31115c88543f00ac796ba898632493d2667698a6
 ## Installation
 
 ```
@@ -89,16 +86,16 @@ const configureStore = (initialState = {}) => {
 ```css
 /*navbar.css*/
 :root {
- /* optionally provide fallback values */
-  --primaryBG: "#303641";
-  --navbarHeight: 50px;
-  --navbarPaddingTop: 5px;
+	/* optionally provide fallback values */
+	--primaryBG: "#303641";
+	--navbarHeight: 50px;
+	--navbarPaddingTop: 5px;
 }
 
 .navbar-container {
-  background-color: var(--primaryBG);
-  height: var(--navbarHeight);
-  padding-top: var(--navbarPaddingTop);
+	background-color: var(--primaryBG);
+	height: var(--navbarHeight);
+	padding-top: var(--navbarPaddingTop);
 }
 ```
 
@@ -106,11 +103,11 @@ const configureStore = (initialState = {}) => {
 
 #### css.setVariable(varName, value)
 
-Set a CSS Variable if changed from it's current value.  Returns the previous
+Set a CSS Variable if changed from it's current value. Returns the previous
 value of the variable (if any).
 
 ```js
-css.setVariable('primaryBG', '#303641')
+css.setVariable("primaryBG", "#303641");
 ```
 
 #### css.setAllVariables(variables)
@@ -119,9 +116,9 @@ Take an Object Literal and sets each of its keys as CSS Variables with their val
 
 ```js
 css.setAllVariables({
-  primaryBG: '#303641',
-  secondaryBG: '#121519'
-})
+	primaryBG: "#303641",
+	secondaryBG: "#121519"
+});
 ```
 
 #### css.getVariable(varName)
@@ -129,17 +126,16 @@ css.setAllVariables({
 Gets the given CSS Variables current value.
 
 ```js
-const primaryBG = css.getVariable('primaryBG')
+const primaryBG = css.getVariable("primaryBG");
 ```
 
 #### css.getAllVariables
 
-Gets all of the current variables.  Currently this only captures the variables
+Gets all of the current variables. Currently this only captures the variables
 that redux-css is handling.
 
-
 ```js
-const variables = css.getAllVariables()
+const variables = css.getAllVariables();
 ```
 
 #### css.removeVariable(varName)
@@ -147,7 +143,7 @@ const variables = css.getAllVariables()
 Remove the given CSS Variable.
 
 ```js
-css.removeVariable('navbarPadding')
+css.removeVariable("navbarPadding");
 ```
 
 #### css.middleware
@@ -155,7 +151,7 @@ css.removeVariable('navbarPadding')
 Redux CSS Middleware to be passed to redux.
 
 ```js
-applyMiddleware(css.middleware)
+applyMiddleware(css.middleware);
 ```
 
 ## PostCSS Custom Properties
@@ -166,14 +162,14 @@ to set your configuration:
 ```js
 // postcss.config.js
 module.exports = {
-  plugins: [
-    require('postcss-cssnext')({
-      features: {
-        customProperties: {
-          preserve: true,
-        },
-      }
-    }),
-  ],
-}
+	plugins: [
+		require("postcss-cssnext")({
+			features: {
+				customProperties: {
+					preserve: true
+				}
+			}
+		})
+	]
+};
 ```

@@ -1,14 +1,13 @@
-
-const isObjLiteral =
-  o => ( o !== null && ! Array.isArray(o) && typeof o !== 'function' && typeof o === 'object' )
+const isObjLiteral = o =>
+  o !== null && !Array.isArray(o) && typeof o !== 'function' && typeof o === 'object';
 
 // const toReduxType =
 //   str => isReduxType(str) ? str : str.replace(/(?!^)([A-Z])/g, '_$1').toUpperCase()
 
-const toReduxType = str => formatType(str)
+const toReduxType = str => formatType(str);
 
 // Allow for wildcard in the types
-const isReduxType = str => /^[A-Z\*]+([_\*][A-Z\*]+)*?$/.test(str)
+const isReduxType = str => /^[A-Z\*]+([_\*][A-Z\*]+)*?$/.test(str);
 
 /*
   Give a best effort to make the type formatting as reliable as possible.
@@ -28,52 +27,60 @@ const isReduxType = str => /^[A-Z\*]+([_\*][A-Z\*]+)*?$/.test(str)
   systemRx -> 'SYSTEM_RX'
   systemRX -> 'SYSTEM_RX'
 */
-function formatType (type) {
+function formatType(type) {
   // let wildcardType = hasWildcard(type)
-  let wildcardType
-  if ( isReduxType(type) ) { return type }
-  var buffer = '',
-      list = type
-              .split(/([A-Z]+|[a-z]+)/)
-              .reduce(
-                (a, c) => {
-                  if ( c === '' ) { return a }
-                  a.push(c)
-                  return a
-                }, []
-              )
-  if ( list.length === 1 ) { return type.toUpperCase() }
-  let wasCapital = false
-  for ( let e of list ) {
-    if ( ! e.length  ) { continue }
-    const isCapital = /[A-Z]/.test(e)
-    e = e.toUpperCase()
-    if ( isReduxType(e) ) {
-      if ( buffer === '' ) {
-        buffer += e
-      } else {
-        if ( isCapital && ! wasCapital ) {
-          buffer += '_' + e
-        } else if ( wasCapital && isCapital ) {
-          buffer += e
-        } else if ( wasCapital && ! isCapital ) {
-          if ( buffer.slice(-2, -1) === '_' || buffer.slice(-2, -1) === '' ) {
-            buffer += e
-          } else { buffer = buffer.slice(0, -1) + '_' + buffer.slice(-1) + e }
-        } else if ( wasCapital && ! isCapital ) {
-          if ( buffer.slice(-2, -1) === '_' || buffer.slice(-2, -1) === '' ) {
-            buffer += e
-          } else { buffer += '_' + e }
-        } else { buffer += '_' + e }
-      }
-    } else if ( e.includes('*') ) {
-      buffer += e
-    }
-    wasCapital = isCapital
+  let wildcardType;
+  if (isReduxType(type)) {
+    return type;
   }
-  if ( isReduxType(buffer) ) {
-    return buffer
+  let buffer = '',
+    list = type.split(/([A-Z]+|[a-z]+)/).reduce((a, c) => {
+      if (c === '') {
+        return a;
+      }
+      a.push(c);
+      return a;
+    }, []);
+  if (list.length === 1) {
+    return type.toUpperCase();
+  }
+  let wasCapital = false;
+  for (let e of list) {
+    if (!e.length) {
+      continue;
+    }
+    const isCapital = /[A-Z]/.test(e);
+    e = e.toUpperCase();
+    if (isReduxType(e)) {
+      if (buffer === '') {
+        buffer += e;
+      } else if (isCapital && !wasCapital) {
+        buffer += `_${e}`;
+      } else if (wasCapital && isCapital) {
+        buffer += e;
+      } else if (wasCapital && !isCapital) {
+        if (buffer.slice(-2, -1) === '_' || buffer.slice(-2, -1) === '') {
+          buffer += e;
+        } else {
+          buffer = `${buffer.slice(0, -1)}_${buffer.slice(-1)}${e}`;
+        }
+      } else if (wasCapital && !isCapital) {
+        if (buffer.slice(-2, -1) === '_' || buffer.slice(-2, -1) === '') {
+          buffer += e;
+        } else {
+          buffer += `_${e}`;
+        }
+      } else {
+        buffer += `_${e}`;
+      }
+    } else if (e.includes('*')) {
+      buffer += e;
+    }
+    wasCapital = isCapital;
+  }
+  if (isReduxType(buffer)) {
+    return buffer;
   }
 }
 
-export { isObjLiteral, toReduxType, isReduxType }
+export { isObjLiteral, toReduxType, isReduxType };

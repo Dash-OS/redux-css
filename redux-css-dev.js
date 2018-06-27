@@ -49,8 +49,7 @@ const middleware = function cssReducerMiddlewareRunner(reducer, currentVars, act
   const nextVars = reducer(currentVars, action, state);
   if (nextVars !== currentVars) {
     getChangedVars(currentVars, nextVars).forEach((varValue, varName) =>
-      handleVar(varName, varValue),
-    );
+      handleVar(varName, varValue));
   }
   return nextVars;
 };

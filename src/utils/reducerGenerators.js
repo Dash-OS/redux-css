@@ -1,18 +1,21 @@
 // import { Wildcard } from './wildcard'
 
-const nilReducer =
-  ( initialState = {} ) =>  ( state = initialState ) => state
+const nilReducer = (initialState = {}) => (state = initialState) => state;
 
-const arrayMapReducer =
-  ( initialState, reducers, pcontext ) =>  ( state = initialState, action, context ) =>
-  ( reducers.reduce( (p, c)  => c(p, action, { ...pcontext, ...context }), state ) )
+const arrayMapReducer = (initialState, reducers, pcontext) => (
+  state = initialState,
+  action,
+  context,
+) => reducers.reduce((p, c) => c(p, action, { ...pcontext, ...context }), state);
 
-const objectMapReducer =
-  (initialState, handlers = {}, pcontext) => (state = initialState, action, context) =>
-  {
-    if ( ! action || ! action.type || ! handlers[action.type]  ) return state
-    return handlers[action.type](state, action, { ...pcontext, ...context })
-  }
+const objectMapReducer = (initialState, handlers = {}, pcontext) => (
+  state = initialState,
+  action,
+  context,
+) => {
+  if (!action || !action.type || !handlers[action.type]) return state;
+  return handlers[action.type](state, action, { ...pcontext, ...context });
+};
 
 // const wildcardMapReducer =
 //   (initialState, handlers = {}, pcontext) => {
@@ -27,28 +30,26 @@ const objectMapReducer =
 //       }
 //   }
 
-const reducerReducer =
-  ( initialState, reducer, pcontext ) => ( state = initialState, action, context ) =>
-  ( reducer(state, action, { ...pcontext, ...context }) )
+const reducerReducer = (initialState, reducer, pcontext) => (
+  state = initialState,
+  action,
+  context,
+) => reducer(state, action, { ...pcontext, ...context });
 
-const nestedObjectMapReducer =
-  (initialState, handlers = {}, pcontext ) => ( state = initialState, action, context) =>
-  {
-    if ( ! action || ! action.type || ! handlers[action.type] ) return state
-    const _context = { ...pcontext, ...context }
-    const { path } = _context
-    if ( ! path ) return state
-    const childState = handlers[action.type](state[path], action, _context)
-    return {
-      ...state,
-      [path]: childState
-    }
-  }
+const nestedObjectMapReducer = (initialState, handlers = {}, pcontext) => (
+  state = initialState,
+  action,
+  context,
+) => {
+  if (!action || !action.type || !handlers[action.type]) return state;
+  const _context = { ...pcontext, ...context };
+  const { path } = _context;
+  if (!path) return state;
+  const childState = handlers[action.type](state[path], action, _context);
+  return {
+    ...state,
+    [path]: childState,
+  };
+};
 
-export {
-  nilReducer,
-  arrayMapReducer,
-  objectMapReducer,
-  nestedObjectMapReducer,
-  reducerReducer,
-}
+export { nilReducer, arrayMapReducer, objectMapReducer, nestedObjectMapReducer, reducerReducer };
